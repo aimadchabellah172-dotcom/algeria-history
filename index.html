@@ -3,99 +3,47 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>تاريخ الجزائر التفاعلي</title>
-
-<!-- Leaflet -->
+<title>موسوعة تاريخ الجزائر</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <style>
-body{margin:0;font-family:Tahoma;background:#eef2f7;line-height:2}
-header{background:linear-gradient(135deg,#0b5ed7,#198754);color:#fff;padding:40px;text-align:center}
-nav{position:sticky;top:0;background:#fff;display:flex;justify-content:center;gap:10px;padding:10px;box-shadow:0 2px 10px rgba(0,0,0,.1);z-index:1000}
-nav button{border:none;padding:10px 15px;border-radius:8px;background:#0b5ed7;color:#fff;cursor:pointer}
-nav button:hover{background:#198754}
+body{margin:0;font-family:Tahomа;background:#f4f6f8;color:#222;transition:.3s}
+.dark{background:#121212;color:#eee}
+header{background:linear-gradient(135deg,#0b5ed7,#198754);color:#fff;padding:30px;text-align:center}
+nav{position:sticky;top:0;background:#fff;padding:10px;display:flex;gap:10px;justify-content:center}
+.dark nav{background:#1e1e1e}
+button{padding:8px 12px;border:none;border-radius:8px;background:#0b5ed7;color:white;cursor:pointer}
 section{max-width:1100px;margin:auto;padding:20px}
-.card{background:#fff;padding:25px;margin:20px 0;border-radius:12px;box-shadow:0 5px 15px rgba(0,0,0,.08);opacity:0;transform:translateY(40px);transition:.6s}
-.card.show{opacity:1;transform:translateY(0)}
-#map{height:500px;border-radius:12px;margin-top:20px}
-.timeline{display:flex;overflow-x:auto;gap:10px;margin:15px 0}
-.timeline button{min-width:120px}
+.card{background:white;padding:20px;margin:20px 0;border-radius:12px;box-shadow:0 4px 10px rgba(0,0,0,.1)}
+.dark .card{background:#1e1e1e}
+#map{height:450px;border-radius:12px}
+input{padding:10px;width:100%;margin:10px 0;border-radius:8px;border:1px solid #ccc}
 </style>
 </head>
 <body>
 
 <header>
-<h1>📜 تاريخ الجزائر التفاعلي</h1>
-<p>خريطة متحركة + أنيميشن + تجربة مثل ويكيبيديا</p>
+<h1>📜 موسوعة تاريخ الجزائر التفاعلية</h1>
+<p>خريطة + خط زمني + بحث + شخصيات + إنفوجرافيك</p>
 </header>
 
 <nav>
-<button onclick="scrollToSection('mapSection')">الخريطة</button>
-<button onclick="scrollToSection('history')">التاريخ</button>
+<button onclick="toggleDark()">🌙 الوضع الليلي</button>
+<button onclick="playTimeline()">⏳ تشغيل الزمن</button>
 </nav>
 
-<section id="mapSection">
-<div class="card show">
-<h2>🗺️ خريطة الجزائر عبر الزمن</h2>
-<div class="timeline">
-<button onclick="showEra('numidia')">نوميديا</button>
-<button onclick="showEra('roman')">الرومان</button>
-<button onclick="showEra('ottoman')">العثمانيون</button>
-<button onclick="showEra('colonial')">الاستعمار</button>
-<button onclick="showEra('modern')">حديثة</button>
-</div>
+<section>
+
+<input type="text" id="search" placeholder="🔎 ابحث في الصفحة..." onkeyup="searchText()">
+
+<div class="card">
+<h2>🗺️ الخريطة التفاعلية</h2>
 <div id="map"></div>
 </div>
-</section>
 
-<section id="history">
-<div class="card"><h2>📜 تاريخ الجزائر</h2><p>تاريخ طويل ومفصل من الحضارات القديمة إلى العصر الحديث.</p></div>
-</section>
-
-<script>
-// Scroll
-function scrollToSection(id){document.getElementById(id).scrollIntoView({behavior:'smooth'})}
-
-// Animation on scroll
-const cards=document.querySelectorAll('.card');
-window.addEventListener('scroll',()=>{
-  cards.forEach(c=>{
-    const top=c.getBoundingClientRect().top;
-    if(top<window.innerHeight-50){c.classList.add('show')}
-  })
-});
-
-// Map init
-var map = L.map('map').setView([28,2],5);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-
-let layer;
-function showEra(era){
-  if(layer){map.removeLayer(layer)}
-
-  let coords;
-
-  if(era==='numidia'){
-    coords=[[35,5],[34,8],[30,8],[31,3]];
-  }
-  if(era==='roman'){
-    coords=[[36,2],[35,9],[30,9],[31,1]];
-  }
-  if(era==='ottoman'){
-    coords=[[37,3],[35,8],[28,8],[29,2]];
-  }
-  if(era==='colonial'){
-    coords=[[37,1],[35,9],[28,9],[29,-1]];
-  }
-  if(era==='modern'){
-    coords=[[37,8],[35,12],[19,12],[20,-8]];
-  }
-
-  layer=L.polygon(coords,{color:'red'}).addTo(map);
-  map.fitBounds(layer.getBounds());
-}
-</script>
-
-</body>
-</html>
+<div class="card">
+<h2>📊 إنفوجرافيك</h2>
+<ul>
+<li>عدد السكان: أكثر من 45 مليون</li>
+<li>أكبر دولة في إفريق

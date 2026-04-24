@@ -3,161 +3,99 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>تاريخ الجزائر الموسع</title>
+<title>تاريخ الجزائر التفاعلي</title>
+
+<!-- Leaflet -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
 <style>
-body{font-family:Tahomа,sans-serif;margin:0;background:#eef2f7;color:#222;line-height:2}
-header{background:linear-gradient(135deg,#0b5ed7,#198754);color:white;padding:50px;text-align:center}
-h1{margin:0;font-size:2.7em}
-section{max-width:1100px;margin:auto;padding:30px}
-.card{background:white;padding:25px;margin:25px 0;border-radius:14px;box-shadow:0 6px 15px rgba(0,0,0,0.08)}
-h2{color:#0b5ed7}
-img{width:100%;border-radius:10px;margin-top:15px}
-footer{background:#111;color:white;text-align:center;padding:20px}
+body{margin:0;font-family:Tahoma;background:#eef2f7;line-height:2}
+header{background:linear-gradient(135deg,#0b5ed7,#198754);color:#fff;padding:40px;text-align:center}
+nav{position:sticky;top:0;background:#fff;display:flex;justify-content:center;gap:10px;padding:10px;box-shadow:0 2px 10px rgba(0,0,0,.1);z-index:1000}
+nav button{border:none;padding:10px 15px;border-radius:8px;background:#0b5ed7;color:#fff;cursor:pointer}
+nav button:hover{background:#198754}
+section{max-width:1100px;margin:auto;padding:20px}
+.card{background:#fff;padding:25px;margin:20px 0;border-radius:12px;box-shadow:0 5px 15px rgba(0,0,0,.08);opacity:0;transform:translateY(40px);transition:.6s}
+.card.show{opacity:1;transform:translateY(0)}
+#map{height:500px;border-radius:12px;margin-top:20px}
+.timeline{display:flex;overflow-x:auto;gap:10px;margin:15px 0}
+.timeline button{min-width:120px}
 </style>
 </head>
 <body>
+
 <header>
-<h1>تاريخ الجزائر الكامل والمفصل جداً</h1>
-<p>صفحة طويلة وشاملة مع خرائط وتفاصيل دقيقة</p>
+<h1>📜 تاريخ الجزائر التفاعلي</h1>
+<p>خريطة متحركة + أنيميشن + تجربة مثل ويكيبيديا</p>
 </header>
-<section>
 
-<div class="card">
-<h2>🗺️ خريطة الجزائر الحديثة</h2>
-<img src="https://upload.wikimedia.org/wikipedia/commons/7/77/Algeria_location_map.svg">
-<p>توضح هذه الخريطة موقع الجزائر في شمال إفريقيا وحدودها الحالية.</p>
+<nav>
+<button onclick="scrollToSection('mapSection')">الخريطة</button>
+<button onclick="scrollToSection('history')">التاريخ</button>
+</nav>
+
+<section id="mapSection">
+<div class="card show">
+<h2>🗺️ خريطة الجزائر عبر الزمن</h2>
+<div class="timeline">
+<button onclick="showEra('numidia')">نوميديا</button>
+<button onclick="showEra('roman')">الرومان</button>
+<button onclick="showEra('ottoman')">العثمانيون</button>
+<button onclick="showEra('colonial')">الاستعمار</button>
+<button onclick="showEra('modern')">حديثة</button>
 </div>
-
-<div class="card">
-<h2>🗺️ خريطة نوميديا القديمة</h2>
-<img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Numidia_II_century_BC.png">
-<p>نوميديا كانت أول كيان سياسي قوي في المنطقة بقيادة ماسينيسا.</p>
+<div id="map"></div>
 </div>
+</section>
 
-<div class="card">
-<h2>🗺️ خريطة الجزائر في العهد الروماني</h2>
-<img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Roman_Africa.png">
-<p>تُظهر امتداد الإمبراطورية الرومانية في شمال إفريقيا.</p>
-</div>
-
-<div class="card">
-<h2>🗺️ خريطة الجزائر في العهد العثماني</h2>
-<img src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Ottoman_Algeria.png">
-<p>الجزائر كإيالة عثمانية ذات نفوذ بحري قوي.</p>
-</div>
-
-<div class="card">
-<h2>🗺️ خريطة الاستعمار الفرنسي</h2>
-<img src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Algeria_French_colonial_map.png">
-<p>توضح تقسيمات الجزائر خلال الاحتلال الفرنسي.</p>
-</div>
-
-<div class="card">
-<h2>📜 عصور ما قبل التاريخ (تفصيل موسع)</h2>
-<p>
-عاشت في الجزائر حضارات بشرية منذ أكثر من مليوني سنة، خاصة في مناطق الطاسيلي والهقار.
-الرسومات الصخرية تُظهر الحياة اليومية، الحيوانات، والطقوس الدينية.
-كانت الصحراء آنذاك خضراء مليئة بالأنهار.
-</p>
-<p>
-تُعتبر هذه المرحلة من أهم مراحل تاريخ الإنسان القديم في العالم.
-</p>
-</div>
-
-<div class="card">
-<h2>🏛️ الحضارات النوميدية والرومانية</h2>
-<p>
-نوميديا كانت مملكة قوية، وحدها ماسينيسا.
-ثم جاء يوغرطة الذي حارب الرومان.
-
-بعد ذلك أصبحت الجزائر تحت الحكم الروماني، وتم بناء مدن متطورة مثل:
-- تيمقاد
-- جميلة
-- هيبون (عنابة)
-
-وكانت هذه المدن تحتوي على مسارح، حمامات، وطرق متقدمة.
-</p>
-</div>
-
-<div class="card">
-<h2>☪️ الفتح الإسلامي والتطور</h2>
-<p>
-دخل الإسلام في القرن السابع، وانتشر بسرعة.
-تعاقبت دول كثيرة، منها:
-الأموية، العباسية، الفاطمية، الزيرية، الحمادية، الزيانية.
-
-أصبحت الجزائر مركزاً علمياً وثقافياً مهماً.
-</p>
-</div>
-
-<div class="card">
-<h2>⚔️ العهد العثماني</h2>
-<p>
-دام أكثر من 300 سنة.
-كانت الجزائر قوة بحرية عظيمة.
-نظام الحكم كان يعتمد على الدايات.
-
-واجهت الجزائر القوى الأوروبية.
-</p>
-</div>
-
-<div class="card">
-<h2>🇫🇷 الاستعمار الفرنسي (تفصيل كبير)</h2>
-<p>
-بدأ سنة 1830 واستمر 132 سنة.
-
-تمت مصادرة الأراضي، ونشر الفقر.
-
-المقاومات:
-- الأمير عبد القادر
-- المقراني
-- بوعمامة
-- لالة فاطمة نسومر
-</p>
-<p>
-كانت هناك مجازر وجرائم كبيرة ضد الشعب الجزائري.
-</p>
-
-<h3>🔥 الثورة الجزائرية</h3>
-<p>
-بدأت 1954 وانتهت 1962.
-قدمت أكثر من مليون شهيد.
-
-من أعظم الثورات في التاريخ.
-</p>
-</div>
-
-<div class="card">
-<h2>🏛️ الجزائر بعد الاستقلال</h2>
-<p>
-بناء الدولة، التأميم، التعليم، الصناعة.
-
-مرّت الجزائر بفترات صعبة مثل العشرية السوداء.
-
-ثم عادت للاستقرار.
-</p>
-</div>
-
-<!-- تكرار فقرات لزيادة الطول بشكل كبير -->
-
-<div class="card"><p>تاريخ الجزائر غني جداً بالأحداث والتحولات السياسية والاجتماعية التي شكلت هويتها الحالية.</p></div>
-<div class="card"><p>الجزائر تعتبر من أهم الدول في إفريقيا من حيث المساحة والتاريخ والنضال.</p></div>
-<div class="card"><p>شهدت الجزائر تطورات كبيرة في مختلف المجالات بعد الاستقلال.</p></div>
-<div class="card"><p>الثقافة الجزائرية مزيج من الأمازيغية والعربية والإسلامية.</p></div>
-<div class="card"><p>الجزائر لعبت دوراً مهماً في دعم حركات التحرر.</p></div>
-
-<!-- تكرار كبير لزيادة عدد الأسطر -->
+<section id="history">
+<div class="card"><h2>📜 تاريخ الجزائر</h2><p>تاريخ طويل ومفصل من الحضارات القديمة إلى العصر الحديث.</p></div>
+</section>
 
 <script>
-// توليد محتوى طويل تلقائياً
-for(let i=0;i<300;i++){
-  document.write(`<div class="card"><p>تفاصيل إضافية حول تاريخ الجزائر، الأحداث، الشخصيات، والتحولات التاريخية المهمة رقم ${i+1}.</p></div>`);
+// Scroll
+function scrollToSection(id){document.getElementById(id).scrollIntoView({behavior:'smooth'})}
+
+// Animation on scroll
+const cards=document.querySelectorAll('.card');
+window.addEventListener('scroll',()=>{
+  cards.forEach(c=>{
+    const top=c.getBoundingClientRect().top;
+    if(top<window.innerHeight-50){c.classList.add('show')}
+  })
+});
+
+// Map init
+var map = L.map('map').setView([28,2],5);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+let layer;
+function showEra(era){
+  if(layer){map.removeLayer(layer)}
+
+  let coords;
+
+  if(era==='numidia'){
+    coords=[[35,5],[34,8],[30,8],[31,3]];
+  }
+  if(era==='roman'){
+    coords=[[36,2],[35,9],[30,9],[31,1]];
+  }
+  if(era==='ottoman'){
+    coords=[[37,3],[35,8],[28,8],[29,2]];
+  }
+  if(era==='colonial'){
+    coords=[[37,1],[35,9],[28,9],[29,-1]];
+  }
+  if(era==='modern'){
+    coords=[[37,8],[35,12],[19,12],[20,-8]];
+  }
+
+  layer=L.polygon(coords,{color:'red'}).addTo(map);
+  map.fitBounds(layer.getBounds());
 }
 </script>
 
-</section>
-<footer>
-<p>صفحة تاريخ الجزائر - نسخة طويلة جداً</p>
-</footer>
 </body>
 </html>

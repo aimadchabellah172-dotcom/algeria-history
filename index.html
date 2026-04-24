@@ -1,12 +1,213 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>تاريخ وحوارة الجزائر العريقة</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" "/main.tsx"></script>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تاريخ الجزائر العريق - ملحمة أرض الأحرار</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Animate On Scroll (AOS) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        arabic: ['Amiri', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        algeria: {
+                            green: '#166534',
+                            red: '#991b1b',
+                            white: '#fcfbf7',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply bg-algeria-white text-stone-900 overflow-x-hidden;
+            }
+            h1, h2, h3, h4 {
+                @apply font-arabic;
+            }
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.3), #fcfbf7);
+        }
+
+        .timeline-line::before {
+            content: '';
+            @apply absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-transparent via-algeria-green to-transparent -translate-x-1/2 hidden md:block;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #166534; border-radius: 10px; }
+
+        .image-overlay {
+            @apply absolute inset-0 bg-gradient-to-t from-black/60 to-transparent;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Progress Loader Bar -->
+    <div id="progress-bar" class="fixed top-0 right-0 h-1.5 bg-algeria-green z-50 transition-all duration-300" style="width: 0%"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-40 px-6 py-4 flex justify-between items-center transition-all duration-500" id="navbar">
+        <div class="text-2xl font-arabic font-bold text-white drop-shadow-lg" id="nav-logo">تاريخ الجزائر</div>
+        <div class="hidden md:flex gap-8 text-white font-arabic font-bold">
+            <a href="#home" class="hover:text-emerald-400 transition-colors">الرئيسية</a>
+            <a href="#timeline" class="hover:text-emerald-400 transition-colors">الخط الزمني</a>
+            <a href="#culture" class="hover:text-emerald-400 transition-colors">الثقافة</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="home" class="relative h-screen flex items-center justify-center bg-black overflow-hidden">
+        <div class="absolute inset-0 z-0 text-center">
+            <img src="https://images.unsplash.com/photo-1510414838637-299f0e1f6e2f?auto=format&fit=crop&q=80&w=1920" 
+                 class="w-full h-full object-cover scale-110 opacity-60" 
+                 id="hero-img" alt="Algeria Sahara">
+            <div class="hero-gradient absolute inset-0"></div>
+        </div>
+        
+        <div class="relative z-10 text-center px-4 max-w-5xl">
+            <span class="text-emerald-400 font-arabic text-xl md:text-2xl mb-4 block tracking-[0.3em] uppercase drop-shadow-lg" data-aos="fade-up">
+                أهلاً بك في أرض البطولات
+            </span>
+            <h1 class="text-6xl md:text-[8rem] text-white font-bold mb-8 leading-tight drop-shadow-2xl" data-aos="zoom-in" data-aos-delay="200">
+                تاريخ الجزائر
+            </h1>
+            <p class="text-gray-200 text-xl md:text-3xl max-w-3xl mx-auto leading-relaxed font-arabic font-light mb-12 italic opacity-90" data-aos="fade-up" data-aos-delay="400">
+                "رحلة عبر الزمن في أعماق مهد البشرية وقبلة الأحرار."
+            </p>
+            <div class="flex flex-col md:flex-row items-center justify-center gap-6" data-aos="fade-up" data-aos-delay="600">
+                <a href="#timeline" class="bg-algeria-green text-white px-10 py-5 rounded-2xl font-arabic font-bold text-xl hover:bg-emerald-800 transition-all shadow-2xl">
+                    ابدأ الرحلة التاريخية
+                </a>
+            </div>
+        </div>
+
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-white/40">
+            <i data-lucide="chevron-down" class="w-10 h-10"></i>
+        </div>
+    </header>
+
+    <!-- Timeline Section -->
+    <section id="timeline" class="py-40 bg-algeria-white relative overflow-hidden">
+        <div class="text-center mb-32 px-4" data-aos="fade-up">
+            <h2 class="text-5xl md:text-7xl font-bold text-algeria-green mb-8">ملحمة الألف عام</h2>
+            <p class="text-gray-500 max-w-3xl mx-auto text-xl md:text-2xl leading-relaxed italic">
+                تتبع الخط الزمني لأمة صنعت التاريخ، من ما قبل التاريخ إلى فجر الاستقلال.
+            </p>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 relative timeline-line">
+            <!-- Event 1 -->
+            <div class="flex flex-col md:flex-row items-center mb-48 last:mb-0" data-aos="fade-left">
+                <div class="w-full md:w-1/2 md:pr-20 mb-12 md:mb-0">
+                    <div class="bg-white p-12 rounded-[3rem] shadow-2xl border border-emerald-50">
+                        <span class="inline-block px-6 py-2 bg-orange-100 text-orange-800 rounded-full text-sm font-bold mb-6">10,000 ق.م</span>
+                        <h3 class="text-4xl font-bold mb-6 text-gray-900">طاسيلي ناجر</h3>
+                        <p class="text-gray-600 text-xl leading-relaxed italic">
+                            أكبر متحف طبيعي للنقوش الصخرية في العالم، شاهد على تحول الصحراء من واحة خضراء إلى حالها اليوم بآلاف الرسومات التاريخية.
+                        </p>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 md:pl-20 px-4">
+                    <img src="https://images.unsplash.com/photo-1590402444811-b6a821e0ca7d?auto=format&fit=crop&q=80&w=800" 
+                         class="rounded-[3rem] shadow-3xl hover:scale-105 transition-transform duration-700" alt="Tassili">
+                </div>
+            </div>
+
+            <!-- Event 2 -->
+            <div class="flex flex-col md:flex-row-reverse items-center mb-48 last:mb-0" data-aos="fade-right">
+                <div class="w-full md:w-1/2 md:pl-20 mb-12 md:mb-0">
+                    <div class="bg-white p-12 rounded-[3rem] shadow-2xl border border-emerald-50">
+                        <span class="inline-block px-6 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-bold mb-6">300 ق.م</span>
+                        <h3 class="text-4xl font-bold mb-6 text-gray-900">مملكة نوميديا</h3>
+                        <p class="text-gray-600 text-xl leading-relaxed italic">
+                            تأسيس الدولة الأمازيغية المتحدة تحت حكم الملك ماسينيسا، الذي جعل من سيرتا منارة للعلم والقوة العسكرية.
+                        </p>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 md:pr-20 px-4">
+                    <img src="https://images.unsplash.com/photo-1548013146-72479768bbaa?auto=format&fit=crop&q=80&w=800" 
+                         class="rounded-[3rem] shadow-3xl hover:scale-105 transition-transform duration-700" alt="Numidia">
+                </div>
+            </div>
+
+            <!-- Event 3 -->
+            <div class="flex flex-col md:flex-row items-center mb-48 last:mb-0" data-aos="fade-left">
+                <div class="w-full md:w-1/2 md:pr-20 mb-12 md:mb-0">
+                    <div class="bg-white p-12 rounded-[3rem] shadow-2xl border border-emerald-50">
+                        <span class="inline-block px-6 py-2 bg-red-100 text-red-800 rounded-full text-sm font-bold mb-6">1954 - 1962</span>
+                        <h3 class="text-4xl font-bold mb-6 text-gray-900">ثورة التحرير المظفرة</h3>
+                        <p class="text-gray-600 text-xl leading-relaxed italic">
+                            ملحمة المليون ونصف شهيد التي هزت العالم وأدت إلى استعادة الاستقلال والكرامة في 5 جويلية 1962.
+                        </p>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 md:pl-20 px-4">
+                    <img src="https://images.unsplash.com/photo-1510414838637-299f0e1f6e2f?auto=format&fit=crop&q=80&w=800" 
+                         class="rounded-[3rem] shadow-3xl hover:scale-105 transition-transform duration-700" alt="Independence">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white py-20 border-t border-gray-100 text-center">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-5xl font-bold text-algeria-green mb-8">الجزائر</h2>
+            <p class="text-gray-400 font-arabic italic">© 2024 جميع الحقوق محفوظة - مهد البطولات ومنارة الأحرار.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        lucide.createIcons();
+        AOS.init({ duration: 1000, once: true });
+
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            const logo = document.getElementById('nav-logo');
+            const progress = document.getElementById('progress-bar');
+            
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            progress.style.width = scrolled + "%";
+
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-white/90', 'shadow-sm', 'py-3');
+                logo.classList.remove('text-white');
+                logo.classList.add('text-algeria-green');
+            } else {
+                navbar.classList.remove('bg-white/90', 'shadow-sm', 'py-3');
+                logo.classList.add('text-white');
+                logo.classList.remove('text-algeria-green');
+            }
+        });
+    </script>
+</body>
 </html>

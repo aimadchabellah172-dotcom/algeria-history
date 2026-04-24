@@ -1,49 +1,221 @@
-<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>موسوعة تاريخ الجزائر</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-<style>
-body{margin:0;font-family:Tahomа;background:#f4f6f8;color:#222;transition:.3s}
-.dark{background:#121212;color:#eee}
-header{background:linear-gradient(135deg,#0b5ed7,#198754);color:#fff;padding:30px;text-align:center}
-nav{position:sticky;top:0;background:#fff;padding:10px;display:flex;gap:10px;justify-content:center}
-.dark nav{background:#1e1e1e}
-button{padding:8px 12px;border:none;border-radius:8px;background:#0b5ed7;color:white;cursor:pointer}
-section{max-width:1100px;margin:auto;padding:20px}
-.card{background:white;padding:20px;margin:20px 0;border-radius:12px;box-shadow:0 4px 10px rgba(0,0,0,.1)}
-.dark .card{background:#1e1e1e}
-#map{height:450px;border-radius:12px}
-input{padding:10px;width:100%;margin:10px 0;border-radius:8px;border:1px solid #ccc}
-</style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>تاريخ الجزائر: رحلة عبر الزمن</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .font-serif-ar {
+            font-family: 'Amiri', serif;
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .hero-gradient {
+            background: radial-gradient(circle at center, rgba(90, 90, 64, 0.05) 0%, transparent 70%);
+        }
+        .bg-custom-olive { background-color: #5A5A40; }
+        .text-custom-olive { color: #5A5A40; }
+        .border-custom-olive { border-color: #5A5A40; }
+    </style>
 </head>
-<body>
+<body class="bg-[#fcfbf9] text-[#1a1a1a] selection:bg-[#5A5A40] selection:text-white overflow-x-hidden">
 
-<header>
-<h1>📜 موسوعة تاريخ الجزائر التفاعلية</h1>
-<p>خريطة + خط زمني + بحث + شخصيات + إنفوجرافيك</p>
-</header>
+    <!-- Hero Section -->
+    <header class="relative h-screen flex flex-col items-center justify-center text-center px-4 hero-gradient">
+        <div class="z-10 reveal active">
+            <span class="font-serif-ar italic text-xl md:text-2xl text-custom-olive mb-4 block">تراث عريق وذاكرة لا تنسى</span>
+            <h1 class="font-serif-ar text-6xl md:text-8xl lg:text-9xl leading-none mb-8 tracking-tighter">
+                الجزائر <br />
+                <span class="text-custom-olive">تاريخ الكفاح</span>
+            </h1>
+            <div class="h-px bg-[#1a1a1a]/20 w-32 mx-auto mb-8"></div>
+            <p class="max-w-2xl mx-auto text-lg md:text-xl text-[#1a1a1a]/70 font-light leading-relaxed">
+                رحلة غامرة عبر آلاف السنين، من ممالك نوميديا الشامخة إلى ثورة التحرير المجيدة، مستعرضين محطات صنعت مجد هذه الأرض.
+            </p>
+            <div class="mt-12">
+                <a href="#history" class="animate-bounce inline-block text-custom-olive">
+                    <i data-lucide="chevron-down" class="w-8 h-8"></i>
+                </a>
+            </div>
+        </div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] bg-[#5A5A40]/5 rounded-full blur-[100px] -z-10"></div>
+    </header>
 
-<nav>
-<button onclick="toggleDark()">🌙 الوضع الليلي</button>
-<button onclick="playTimeline()">⏳ تشغيل الزمن</button>
-</nav>
+    <!-- History Timeline Section -->
+    <main id="history" class="py-24 px-4 max-w-7xl mx-auto space-y-32">
+        
+        <div class="flex flex-col md:flex-row items-end justify-between mb-16 gap-4 reveal">
+            <div class="max-w-xl">
+                <h2 class="font-serif-ar text-4xl md:text-5xl mb-4">خط زمني للأحداث</h2>
+                <p class="text-[#1a1a1a]/60">تحولات جغرافية وسياسية رسمت معالم الجزائر عبر العصور.</p>
+            </div>
+        </div>
 
-<section>
+        <!-- Numidia -->
+        <div class="flex flex-col md:flex-row gap-12 items-center reveal">
+            <div class="flex-1 space-y-6">
+                <div class="inline-flex items-center gap-3 px-4 py-2 bg-[#5A5A40]/10 text-custom-olive rounded-full text-sm font-medium">
+                    <i data-lucide="shield-check" class="w-5 h-5"></i>
+                    <span>202 ق.م - 40 م</span>
+                </div>
+                <h3 class="font-serif-ar text-4xl text-right">مملكة نوميديا و العصور القديمة</h3>
+                <p class="text-[#1a1a1a]/70 text-lg leading-relaxed font-light text-right">
+                    فترة تميزت بظهور الممالك الأمازيغية القوية، وأشهرها مملكة نوميديا تحت حكم الملك ماسينيسا. كانت هذه الحقبة تشهد ازدهاراً زراعياً وتجارياً كبيراً، وبرزت فيها مدن مثل سيرتا (قسنطينة حالياً) كعواصم حضارية.
+                </p>
+                <div class="flex justify-end">
+                    <button class="flex items-center gap-2 text-[#1a1a1a] font-medium border-b border-[#1a1a1a]/30 pb-1 hover:border-[#1a1a1a] transition-all group">
+                        عرض الخرائط التاريخية
+                        <i data-lucide="map" class="w-4 h-4 transition-transform group-hover:scale-110"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="flex-1 w-full">
+                <div class="relative group overflow-hidden rounded-3xl shadow-xl shadow-[#5A5A40]/5">
+                    <img src="https://images.unsplash.com/photo-1590001150393-8f4bd327295d?auto=format&fit=crop&q=80&w=800" alt="Numidia" class="w-full aspect-[4/3] object-cover grayscale-[0.3] group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-105">
+                </div>
+            </div>
+        </div>
 
-<input type="text" id="search" placeholder="🔎 ابحث في الصفحة..." onkeyup="searchText()">
+        <!-- Islamic Era -->
+        <div class="flex flex-col md:flex-row-reverse gap-12 items-center reveal">
+            <div class="flex-1 space-y-6">
+                <div class="inline-flex items-center gap-3 px-4 py-2 bg-[#5A5A40]/10 text-custom-olive rounded-full text-sm font-medium">
+                    <i data-lucide="history" class="w-5 h-5"></i>
+                    <span>القرن 7 - القرن 15</span>
+                </div>
+                <h3 class="font-serif-ar text-4xl text-right">العهود الإسلامية</h3>
+                <p class="text-[#1a1a1a]/70 text-lg leading-relaxed font-light text-right">
+                    شهدت هذه الفترة دخول الإسلام إلى بلاد المغرب، وتأسيس دول قوية مثل الدولة الرستمية، الحمادية، والزيانية. ازدهرت خلالها العلوم والآداب، وبنيت مدن تاريخية مثل قلعة بني حماد وتلمسان.
+                </p>
+                <div class="flex justify-end">
+                    <button class="flex items-center gap-2 text-[#1a1a1a] font-medium border-b border-[#1a1a1a]/30 pb-1 hover:border-[#1a1a1a] transition-all group">
+                        عرض الخرائط التاريخية
+                        <i data-lucide="map" class="w-4 h-4 transition-transform group-hover:scale-110"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="flex-1 w-full">
+                <div class="relative group overflow-hidden rounded-3xl shadow-xl shadow-[#5A5A40]/5">
+                    <img src="https://images.unsplash.com/photo-1548013146-72479768b921?auto=format&fit=crop&q=80&w=800" alt="Islamic Era" class="w-full aspect-[4/3] object-cover grayscale-[0.3] group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-105">
+                </div>
+            </div>
+        </div>
 
-<div class="card">
-<h2>🗺️ الخريطة التفاعلية</h2>
-<div id="map"></div>
-</div>
+        <!-- Ottoman Era -->
+        <div class="flex flex-col md:flex-row gap-12 items-center reveal">
+            <div class="flex-1 space-y-6">
+                <div class="inline-flex items-center gap-3 px-4 py-2 bg-[#5A5A40]/10 text-custom-olive rounded-full text-sm font-medium">
+                    <i data-lucide="anchor" class="w-5 h-5"></i>
+                    <span>1516 - 1830</span>
+                </div>
+                <h3 class="font-serif-ar text-4xl text-right">الجزائر في العهد العثماني</h3>
+                <p class="text-[#1a1a1a]/70 text-lg leading-relaxed font-light text-right">
+                    حقبة "إيالة الجزائر"، حيث أصبحت الجزائر قوة بحرية مهيمنة في البحر الأبيض المتوسط. تميزت بنظام إداري قوي وازدهار عمراني، خاصة في مدينة الجزائر (القصبة) التي كانت مركزاً سياسياً وعسكرياً عالمياً.
+                </p>
+                <div class="flex justify-end">
+                    <button class="flex items-center gap-2 text-[#1a1a1a] font-medium border-b border-[#1a1a1a]/30 pb-1 hover:border-[#1a1a1a] transition-all group">
+                        عرض الخرائط التاريخية
+                        <i data-lucide="map" class="w-4 h-4 transition-transform group-hover:scale-110"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="flex-1 w-full">
+                <div class="relative group overflow-hidden rounded-3xl shadow-xl shadow-[#5A5A40]/5">
+                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=800" alt="Ottoman Algiers" class="w-full aspect-[4/3] object-cover grayscale-[0.3] group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-105">
+                </div>
+            </div>
+        </div>
 
-<div class="card">
-<h2>📊 إنفوجرافيك</h2>
-<ul>
-<li>عدد السكان: أكثر من 45 مليون</li>
-<li>أكبر دولة في إفريق
+        <!-- Modern Revolution -->
+        <div class="flex flex-col md:flex-row-reverse gap-12 items-center reveal">
+            <div class="flex-1 space-y-6">
+                <div class="inline-flex items-center gap-3 px-4 py-2 bg-[#511] text-red-100 rounded-full text-sm font-medium">
+                    <i data-lucide="flag" class="w-5 h-5"></i>
+                    <span>1830 - 1962</span>
+                </div>
+                <h3 class="font-serif-ar text-4xl text-right">الاستعمار الفرنسي والثورة المظفرة</h3>
+                <p class="text-[#1a1a1a]/70 text-lg leading-relaxed font-light text-right">
+                    فترة صمود ومقاومة بدأت من الأمير عبد القادر، وصولاً إلى ثورة الأول من نوفمبر 1954. توجت هذه التضحيات بانتزاع الاستقلال بعد قرن وثلث من النضال المرير.
+                </p>
+                <div class="flex justify-end">
+                    <button class="flex items-center gap-2 text-[#1a1a1a] font-medium border-b border-[#1a1a1a]/30 pb-1 hover:border-[#1a1a1a] transition-all group">
+                        عرض الخرائط التاريخية
+                        <i data-lucide="map" class="w-4 h-4 transition-transform group-hover:scale-110"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="flex-1 w-full">
+                <div class="relative group overflow-hidden rounded-3xl shadow-xl shadow-[#5A5A40]/5">
+                    <img src="https://images.unsplash.com/photo-1493246507139-91e8bef99c17?auto=format&fit=crop&q=80&w=800" alt="Revolution" class="w-full aspect-[4/3] object-cover grayscale-[0.3] group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-105">
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Map Highlight Section -->
+    <section class="bg-[#1a1a1a] text-[#fcfbf9] py-32 mt-24">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="reveal mb-16">
+                <h2 class="font-serif-ar text-5xl md:text-7xl mb-6">الجزائر اليوم</h2>
+                <p class="text-[#fcfbf9]/60 max-w-2xl mx-auto text-lg font-light">
+                    أكبر بلد في أفريقيا، مساحة شاسعة وجمال متنوع، من البحر الأبيض المتوسط شمالاً إلى قلب الصحراء الكبرى جنوباً.
+                </p>
+            </div>
+            
+            <div class="relative aspect-video rounded-[3rem] overflow-hidden bg-white/5 border border-white/10 p-8 flex items-center justify-center reveal">
+                <img src="https://images.unsplash.com/photo-1548013146-72479768b921?auto=format&fit=crop&q=80&w=1200" alt="Algeria Geography" class="max-h-full object-contain opacity-50 grayscale">
+                <div class="absolute bottom-8 left-8 text-right hidden md:block">
+                    <p class="text-4xl font-serif-ar mb-1">2.382 <span class="text-sm">مليون كم²</span></p>
+                    <p class="text-white/40 uppercase tracking-widest text-xs">إجمالي المساحة</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-[#1a1a1a]/5 text-center mt-24 opacity-60">
+        <p class="text-[#1a1a1a] text-sm font-light">
+            تحية إجلال لشهداء الجزائر الأبرار
+        </p>
+    </footer>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Reveal animations on scroll
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+
+        window.addEventListener("scroll", reveal);
+        // Initial check
+        reveal();
+    </script>
+</body>
+</html>
